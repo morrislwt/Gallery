@@ -1,5 +1,6 @@
 import UIKit
 import AVFoundation
+import Photos
 
 public protocol GalleryControllerDelegate: class {
 
@@ -141,4 +142,21 @@ open class GalleryController: UIViewController, PermissionControllerDelegate {
       controller.g_removeFromParentController()
     }
   }
+}
+
+extension GalleryController: PHPhotoLibraryChangeObserver {
+    
+    public func photoLibraryDidChange(_ changeInstance: PHChange) {
+        DispatchQueue.main.async { [unowned self] in
+            // Obtain authorization status and update UI accordingly
+            setup()
+
+            if let pagesController = makePagesController() {
+              g_addChildController(pagesController)
+            } else {
+              let permissionController = makePermissionController()
+              g_addChildController(permissionController)
+            }
+        }
+    }
 }
