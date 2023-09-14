@@ -30,7 +30,7 @@ open class GalleryController: UIViewController, PermissionControllerDelegate {
 
   open override func viewDidLoad() {
     super.viewDidLoad()
-
+    PHPhotoLibrary.shared().register(self)
     setup()
 
     if let pagesController = makePagesController() {
