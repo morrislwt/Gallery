@@ -152,7 +152,7 @@ extension ImagesController: PageAware {
         self.gridView.loadingIndicator.stopAnimating()
         self.dropdownController.albums = self.library.albums
         self.dropdownController.tableView.reloadData()
-
+        self.gridView.emptyView.isHidden = !self.items.isEmpty
         if let album = self.library.albums.first {
           self.selectedAlbum = album
           self.show(album: album)
